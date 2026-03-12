@@ -2,6 +2,7 @@
 
 import { motion, useInView, useSpring } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
+import { LandingPageContent } from '@/types'
 
 interface StatItem {
   value: string | number
@@ -9,16 +10,8 @@ interface StatItem {
   suffix?: string | null
 }
 
-interface StatsContent {
-  title?: string
-  subtitle?: string
-  metadata?: {
-    items?: StatItem[]
-  }
-}
-
 interface StatsSectionProps {
-  content: StatsContent | null
+  content: LandingPageContent | null
 }
 
 function Counter({ value, suffix = '' }: { value: string | number; suffix?: string | null }) {
@@ -66,7 +59,8 @@ const defaultStats: StatItem[] = [
 ]
 
 export function StatsSection({ content }: StatsSectionProps) {
-  const stats = content?.metadata?.items || defaultStats
+  const metadata = content?.metadata as { items?: StatItem[] } | undefined
+  const stats = metadata?.items || defaultStats
 
   return (
     <section className="relative py-10 overflow-hidden bg-black/50 border-t border-b line-gradient">

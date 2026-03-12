@@ -6,7 +6,7 @@ import { useAuth } from '@/contexts/auth-context'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import Image from 'next/image'
 
 function LoginForm() {
@@ -51,7 +51,7 @@ function LoginForm() {
           <div className="flex flex-col items-start justify-center gap-2 mb-4">
             <h1 className='text-white text-4xl font-bold'>Sign In, Admin</h1>
             <p className='text-white'>Sign in to your admin account to access the CMS</p>
-            <p className='text-gray-400 text-xs'>Get in touch with your team's in-charge
+            <p className='text-gray-400 text-xs'>Get in touch with your team&apos;s in-charge
               if you encounter any issue.</p>
           </div>
         </div>

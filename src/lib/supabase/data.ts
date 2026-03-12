@@ -1,6 +1,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient as createPublicClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/client'
+import { LandingPageContent } from '@/types'
 
 function getPublicSupabase(): SupabaseClient | null {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -14,7 +15,7 @@ export async function getFeaturedMembers() {
   if (!supabase) return []
   const { data } = await supabase
     .from('members')
-    .select('id,name,photo_url,role,company,skills,hackathon_wins,projects_built,grants_received,dao_contributions,bounties_completed,is_featured,twitter_url,special_badge')
+    .select('id,name,photo_url,role,company,skills,hackathon_wins,projects_built,grants_received,dao_contributions,bounties_completed,is_featured,created_at,twitter_url,special_badge')
     .eq('is_featured', true)
     .limit(8)
   return data || []
@@ -46,7 +47,7 @@ export async function getTestimonials() {
   if (!supabase) return []
   const { data } = await supabase
     .from('testimonials')
-    .select('tweet_url,is_featured,created_at')
+    .select('id,tweet_url,is_featured,created_at')
     .eq('is_featured', true)
     .order('created_at', { ascending: false })
   return data || []
@@ -139,16 +140,16 @@ export async function getCtaContent() {
   return data
 }
 
-export async function getLandingSections(sections: string[]) {
+export async function getLandingSections(sections: string[]): Promise<Record<string, LandingPageContent>> {
   const supabase = getPublicSupabase()
-  if (!supabase || sections.length === 0) return {}
+  if (!supabase || sections.length === 0) return {} as Record<string, LandingPageContent>
   const { data } = await supabase
     .from('landing_page_content')
     .select('id,section,title,subtitle,content,cta_text,cta_url,image_url,metadata,created_at,updated_at')
     .in('section', sections)
-  const map: Record<string, unknown> = {}
+  const map: Record<string, LandingPageContent> = {} as Record<string, LandingPageContent>
   for (const row of data || []) {
-    map[row.section] = row
+    map[row.section] = row as LandingPageContent
   }
   return map
 }

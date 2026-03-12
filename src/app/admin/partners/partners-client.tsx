@@ -85,8 +85,9 @@ export default function PartnersClient({ initialPartners }: PartnersClientProps)
             try {
                 await deletePartnerAction(id)
                 setPartners(prev => prev.filter(p => p.id !== id))
-            } catch (err: any) {
-                alert('Failed to delete partner: ' + err.message)
+            } catch (err: unknown) {
+                const message = err instanceof Error ? err.message : 'An unexpected error occurred'
+                alert('Failed to delete partner: ' + message)
             }
         }
     }

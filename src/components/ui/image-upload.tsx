@@ -36,9 +36,10 @@ export function ImageUpload({ value, onChange, bucket = 'media', folder = 'image
 
       const publicUrl = await uploadFileAction(formData)
       onChange?.(publicUrl)
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Upload error:', error)
-      alert('Upload failed: ' + error.message)
+      const message = error instanceof Error ? error.message : 'An unexpected error occurred'
+      alert('Upload failed: ' + message)
     } finally {
       setUploading(false)
     }

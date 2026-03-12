@@ -3,7 +3,6 @@
 import { createContext, useContext, useEffect, useState, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import type { User, AuthChangeEvent, Session } from '@supabase/supabase-js'
-import { AdminUser } from '@/types'
 
 interface AuthContextType {
   user: User | null
@@ -29,7 +28,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const fetchUserRole = useCallback(async (userId: string) => {
     try {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('admin_users')
         .select('role')
         .eq('id', userId)

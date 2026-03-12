@@ -86,8 +86,9 @@ export default function MembersClient({ initialMembers }: MembersClientProps) {
                 setMembers(prev => [newMember as Member, ...prev])
             }
             setIsModalOpen(false)
-        } catch (err: any) {
-            alert('Failed to save member: ' + err.message)
+        } catch (err: unknown) {
+            const message = err instanceof Error ? err.message : 'An unexpected error occurred'
+            alert('Failed to save member: ' + message)
         }
     }
 
@@ -96,8 +97,9 @@ export default function MembersClient({ initialMembers }: MembersClientProps) {
             try {
                 await deleteMemberAction(id)
                 setMembers(prev => prev.filter(m => m.id !== id))
-            } catch (err: any) {
-                alert('Failed to delete member: ' + err.message)
+            } catch (err: unknown) {
+                const message = err instanceof Error ? err.message : 'An unexpected error occurred'
+                alert('Failed to delete member: ' + message)
             }
         }
     }

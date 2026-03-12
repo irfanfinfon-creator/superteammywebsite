@@ -69,8 +69,9 @@ export default function AnnouncementsClient({ initialAnnouncements }: Announceme
                 setAnnouncements(prev => [created as Announcement, ...prev])
             }
             setIsModalOpen(false)
-        } catch (err: any) {
-            alert('Failed to save announcement: ' + err.message)
+        } catch (err: unknown) {
+            const message = err instanceof Error ? err.message : 'An unexpected error occurred'
+            alert('Failed to save announcement: ' + message)
         }
     }
 
@@ -79,8 +80,9 @@ export default function AnnouncementsClient({ initialAnnouncements }: Announceme
             try {
                 await deleteAnnouncementAction(id)
                 setAnnouncements(prev => prev.filter(a => a.id !== id))
-            } catch (err: any) {
-                alert('Failed to delete announcement: ' + err.message)
+            } catch (err: unknown) {
+                const message = err instanceof Error ? err.message : 'An unexpected error occurred'
+                alert('Failed to delete announcement: ' + message)
             }
         }
     }
@@ -89,8 +91,9 @@ export default function AnnouncementsClient({ initialAnnouncements }: Announceme
         try {
             const updated = await publishAnnouncementAction(id)
             setAnnouncements(prev => prev.map(a => a.id === id ? (updated as Announcement) : a))
-        } catch (err: any) {
-            alert('Failed to publish announcement: ' + err.message)
+        } catch (err: unknown) {
+            const message = err instanceof Error ? err.message : 'An unexpected error occurred'
+            alert('Failed to publish announcement: ' + message)
         }
     }
 

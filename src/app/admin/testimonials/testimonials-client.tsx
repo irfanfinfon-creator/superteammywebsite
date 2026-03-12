@@ -72,8 +72,9 @@ export default function TestimonialsClient({ initialTestimonials }: Testimonials
                 setTestimonials(prev => [created as Testimonial, ...prev])
             }
             setIsModalOpen(false)
-        } catch (err: any) {
-            alert('Failed to save testimonial: ' + err.message)
+        } catch (err: unknown) {
+            const message = err instanceof Error ? err.message : 'An unexpected error occurred'
+            alert('Failed to save testimonial: ' + message)
         }
     }
 
@@ -82,8 +83,9 @@ export default function TestimonialsClient({ initialTestimonials }: Testimonials
             try {
                 await deleteTestimonialAction(id)
                 setTestimonials(prev => prev.filter(t => t.id !== id))
-            } catch (err: any) {
-                alert('Failed to delete testimonial: ' + err.message)
+            } catch (err: unknown) {
+                const message = err instanceof Error ? err.message : 'An unexpected error occurred'
+                alert('Failed to delete testimonial: ' + message)
             }
         }
     }

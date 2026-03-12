@@ -39,8 +39,9 @@ export default function AdminsClient({ initialAdmins, currentUserId }: AdminsCli
     try {
       await deleteAdminAction(id)
       setAdmins(admins.filter(admin => admin.id !== id))
-    } catch (err: any) {
-      alert(err.message || 'Failed to delete admin')
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'An unexpected error occurred'
+      alert(message || 'Failed to delete admin')
     } finally {
       setLoading(false)
     }

@@ -4,22 +4,15 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { LandingPageContent } from '@/types'
 
 interface FaqItem {
   question: string
   answer: string
 }
 
-interface FaqContent {
-  title?: string
-  subtitle?: string
-  metadata?: {
-    items?: FaqItem[]
-  }
-}
-
 interface FAQSectionProps {
-  content: FaqContent | null
+  content: LandingPageContent | null
 }
 
 const defaultFaqs: FaqItem[] = [
@@ -46,7 +39,8 @@ const defaultFaqs: FaqItem[] = [
 ]
 
 export function FAQSection({ content }: FAQSectionProps) {
-  const faqs = content?.metadata?.items || defaultFaqs
+  const metadata = content?.metadata as { items?: FaqItem[] } | undefined
+  const faqs = metadata?.items || defaultFaqs
 
   return (
     <section className="relative py-24 lg:py-32 overflow-hidden border-t line-gradient" id="faq-section">

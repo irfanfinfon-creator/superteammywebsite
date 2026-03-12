@@ -3,7 +3,7 @@
 import { createAdminClient } from '@/lib/supabase/server-admin'
 import { revalidatePath } from 'next/cache'
 
-export async function saveEventAction(payload: any, id?: string) {
+export async function saveEventAction(payload: Record<string, unknown>, id?: string) {
   const supabase = createAdminClient()
   
   if (id) {

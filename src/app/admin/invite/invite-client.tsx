@@ -26,8 +26,8 @@ export default function InviteClient({ userId }: InviteClientProps) {
     try {
       const data = await getPendingInvitationsAction()
       setInvitations(data as AdminInvitation[])
-    } catch (err: any) {
-      console.error('Failed to load invitations:', err)
+    } catch (err: unknown) {
+      console.error('Failed to load invitations:', err instanceof Error ? err.message : err)
     } finally {
       setLoading(false)
     }
@@ -53,8 +53,9 @@ export default function InviteClient({ userId }: InviteClientProps) {
     try {
       await createInvitationAction(userId)
       await loadInvitations()
-    } catch (err: any) {
-      alert('Failed to generate invite: ' + err.message)
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'An unexpected error occurred'
+      alert('Failed to generate invite: ' + message)
     } finally {
       setGenerating(false)
     }
@@ -71,8 +72,9 @@ export default function InviteClient({ userId }: InviteClientProps) {
     try {
       await deleteInvitationAction(id)
       await loadInvitations()
-    } catch (err: any) {
-      alert('Failed to delete invitation: ' + err.message)
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'An unexpected error occurred'
+      alert('Failed to delete invitation: ' + message)
     }
   }
 

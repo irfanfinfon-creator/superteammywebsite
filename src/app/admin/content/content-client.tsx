@@ -69,8 +69,8 @@ export default function ContentClient({ initialContents }: ContentClientProps) {
                 contentsMap[item.section] = item
             })
             setContents(contentsMap)
-        } catch (err: any) {
-            console.error('Fetch error:', err)
+        } catch (err: unknown) {
+            console.error('Fetch error:', err instanceof Error ? err.message : err)
         }
     }
 

@@ -132,16 +132,18 @@ export default function EventsClient({ initialEvents }: EventsClientProps) {
                     const data = await saveEventAction(payload, editingEvent.id)
                     setEvents(prev => prev.map(e => e.id === editingEvent.id ? (data as Event) : e))
                     closeModal()
-                } catch (err: any) {
-                    setSaveError(err.message || 'Failed to update event.')
+                } catch (err: unknown) {
+                    const message = err instanceof Error ? err.message : 'An unexpected error occurred'
+                    setSaveError(message || 'Failed to update event.')
                 }
             } else {
                 try {
                     const data = await saveEventAction(payload)
                     setEvents(prev => [data as Event, ...prev])
                     closeModal()
-                } catch (err: any) {
-                    setSaveError(err.message || 'Failed to save event. Check your permissions.')
+                } catch (err: unknown) {
+                    const message = err instanceof Error ? err.message : 'An unexpected error occurred'
+                    setSaveError(message || 'Failed to save event. Check your permissions.')
                 }
             }
         } catch (err: unknown) {
@@ -158,8 +160,9 @@ export default function EventsClient({ initialEvents }: EventsClientProps) {
         try {
             await deleteEventAction(id)
             setEvents(prev => prev.filter(e => e.id !== id))
-        } catch (err: any) {
-            alert('Failed to delete event: ' + err.message)
+        } catch (err: unknown) {
+            const message = err instanceof Error ? err.message : 'An unexpected error occurred'
+            alert('Failed to delete event: ' + message)
         }
     }
 
@@ -167,8 +170,9 @@ export default function EventsClient({ initialEvents }: EventsClientProps) {
         try {
             const updated = await toggleEventUpcomingAction(event.id, !event.is_upcoming)
             setEvents(prev => prev.map(e => e.id === event.id ? (updated as Event) : e))
-        } catch (err: any) {
-            alert('Failed to toggle event status: ' + err.message)
+        } catch (err: unknown) {
+            const message = err instanceof Error ? err.message : 'An unexpected error occurred'
+            alert('Failed to toggle event status: ' + message)
         }
     }
 

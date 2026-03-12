@@ -8,7 +8,7 @@ import { CommunitySection } from '@/components/landing/community-section'
 import { FAQSection } from '@/components/landing/faq-section'
 import { CTASection } from '@/components/landing/cta-section'
 import { Footer } from '@/components/layout/footer'
-import { getFeaturedMembers, getPartners, getTestimonials, getEvents, getLandingSections, getAllEvents } from '@/lib/supabase/data'
+import { getFeaturedMembers, getPartners, getTestimonials, getLandingSections, getAllEvents } from '@/lib/supabase/data'
 import { Member, Partner, Testimonial, Event } from '@/types'
 
 export const revalidate = 60
