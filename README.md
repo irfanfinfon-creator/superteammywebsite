@@ -77,4 +77,5 @@ npm run dev
 
 ---
 
-## I am open for any feedback, inquiry or questions. If you facing any problem, issue or want to check out admin dashboard on Vercel Site, DM me on X : @Irfanfinfon.
+## I am open for any feedback, inquiry or questions. If you facing any problem, issue or find any errors,please DM me right away on X : @Irfanfinfon.
+
