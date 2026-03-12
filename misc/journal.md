@@ -1,5 +1,0 @@
-okay, now here's a question for discussion. so in current condition of project, a new admin only can be created if existing admin add them in supabase server or add the email from schema to sql editor. 
-
-the problem here is that even that were to work, new admin cannot login into dashboard anyway, because in order to login to dashboard, you need email (which already added to supabase admin table) and password (only available as default if the new admin have supabase account. if the new admin does not have supabase account, there are no password, thus, no login)
-
-my plan is to create a button that will allow existing admin to invite new admin to access the cms, and send invite to the email, with magic link from supabase. if new admin clicked on magic link, they will be directed to a page where they can setup their password. so, even if they did not have supabase password, they still able to login with the password that they setup on the setup page. now, how do we execute this. what you need to create, and what i need to add on sql schema?
