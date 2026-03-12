@@ -41,13 +41,16 @@ export async function createAdminUser(token: string, email: string, password: st
     return { success: false, error: 'Failed to create user' }
   }
 
-  // Insert into admin_users table
+  // Insert into admin_users table (use upsert to handle duplicates)
   const { error: adminError } = await supabase
     .from('admin_users')
-    .insert({
+    .upsert({
       id: userData.user.id,
       email: email,
       role: 'admin',
+    }, {
+      onConflict: 'id',
+      ignoreDuplicates: false,
     })
 
   if (adminError) {
