@@ -1,4 +1,4 @@
-import { createServerClient } from '@supabase/ssr'
+import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
 export async function updateSession(request: NextRequest) {
@@ -8,22 +8,6 @@ export async function updateSession(request: NextRequest) {
         },
     })
 
-    type CookieOptions = {
-        expires?: Date
-        maxAge?: number
-        path?: string
-        domain?: string
-        secure?: boolean
-        httpOnly?: boolean
-        sameSite?: 'lax' | 'strict' | 'none'
-    }
-
-    type SupabaseCookie = {
-        name: string
-        value: string
-        options?: CookieOptions
-    }
-
     const supabase = createServerClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -32,16 +16,14 @@ export async function updateSession(request: NextRequest) {
                 getAll() {
                     return request.cookies.getAll()
                 },
-                setAll(cookiesToSet: SupabaseCookie[]) {
-                    cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
-                    response = NextResponse.next({
-                        request: {
-                            headers: request.headers,
-                        },
+                setAll(cookiesToSet: Array<{ name: string; value: string; options: CookieOptions }>) {
+                    cookiesToSet.forEach(({ name, value, options }) => {
+                        request.cookies.set(name, value)
+                        response = NextResponse.next({
+                            request: { headers: request.headers },
+                        })
+                        response.cookies.set(name, value, options as CookieOptions)
                     })
-                    cookiesToSet.forEach(({ name, value, options }) =>
-                        response.cookies.set(name, value, options)
-                    )
                 },
             },
         }
