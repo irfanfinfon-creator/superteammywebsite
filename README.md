@@ -45,6 +45,7 @@ SQL schemas are provided in the SUPABASESQLSCHEMA folder. Copy each SQL file int
 - Tables & Row Level Security policies
 - Functions
 - Triggers (Optional)
+- First Admin Setup
 
 NOTE : Setup the database to avoid any complication in running on your local device
 
@@ -78,6 +79,7 @@ npm run dev
 ---
 
 ## I am open for any feedback, inquiry or questions. If you facing any problem, issue or find any errors,please DM me right away on X : @Irfanfinfon.
+
 
 
 
