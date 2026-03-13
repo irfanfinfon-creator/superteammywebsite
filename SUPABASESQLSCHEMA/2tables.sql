@@ -20,14 +20,6 @@ CREATE TABLE IF NOT EXISTS public.members (
     special_badge text[] DEFAULT '{}'::text[]
 );
 
--- Allow public to INSERT into admin_users (for signup flow)
-CREATE POLICY "Allow public insert for admin_users"
-ON public.admin_users
-FOR INSERT
-TO public
-WITH CHECK (true);
-
-
 CREATE TABLE IF NOT EXISTS public.events (
     id uuid DEFAULT extensions.uuid_generate_v4() PRIMARY KEY,
     title text NOT NULL,
@@ -104,6 +96,14 @@ CREATE TABLE IF NOT EXISTS public.admin_invitations (
 ALTER TABLE public.admin_invitations
 ADD CONSTRAINT admin_invitations_invited_by_fkey FOREIGN KEY (invited_by)
 REFERENCES public.admin_users (id);
+
+-- Allow public to INSERT into admin_users (for signup flow)
+CREATE POLICY "Allow public insert for admin_users"
+ON public.admin_users
+FOR INSERT
+TO public
+WITH CHECK (true);
+
 
 -- ==========================
 -- ENABLE ROW LEVEL SECURITY (structure only)
