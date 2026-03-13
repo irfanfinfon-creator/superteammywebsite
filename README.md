@@ -3,7 +3,7 @@
 SuperteamMY is a Malaysian Web3 builder community operating within the Solana ecosystem.  
 The platform showcases community members, projects, and initiatives built by Malaysian contributors who aim to expand the Solana ecosystem locally and globally.
 
-- Vercel Link : SOON
+- Vercel Link : superteammywebsite.vercel.app
 - Figma Link : https://www.figma.com/design/vYwErAaCnYqLgRAy30qGRt/SUPERTEAM-MY-DESIGNS?t=pR5RTYLmiAGBWKmB-1
 
 ## Tech Stack
@@ -78,4 +78,5 @@ npm run dev
 ---
 
 ## I am open for any feedback, inquiry or questions. If you facing any problem, issue or find any errors,please DM me right away on X : @Irfanfinfon.
+
 
